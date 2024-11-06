@@ -21,7 +21,7 @@ readFile('./content/first.txt', 'utf8', (err, result) => {
           console.log(err)
           return
         }
-        console.log('done with this task')
+        console.log('done with this task.')
       }
     )
   })
