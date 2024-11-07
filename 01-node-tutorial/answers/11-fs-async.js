@@ -1,29 +1,30 @@
-const { readFile, writeFile } = require('fs')
+const { writeFile } = require("fs");
 
-console.log('start')
-readFile('./content/first.txt', 'utf8', (err, result) => {
+console.log("at start");
+
+writeFile("./temporary/fileB.txt", "This is line 1\n", (err) => {
+  console.log("at point 1");
   if (err) {
-    console.log(err)
-    return
+    console.log("This error happened: ", err);
+    return;
   }
-  const first = result
-  readFile('./content/second.txt', 'utf8', (err, result) => {
+  
+  writeFile("./temporary/fileB.txt", "This is line 2\n", { flag: "a" }, (err) => {
+    console.log("at point 2");
     if (err) {
-      console.log(err)
-      return
+      console.log("This error happened: ", err);
+      return;
     }
-    const second = result
-    writeFile(
-      './content/result-async.txt',
-      `Here is the result : ${first}, ${second}`,
-      (err, result) => {
-        if (err) {
-          console.log(err)
-          return
-        }
-        console.log('done with this task')
+    
+    writeFile("./temporary/fileB.txt", "This is line 3\n", { flag: "a" }, (err) => {
+      console.log("at point 3");
+      if (err) {
+        console.log("This error happened: ", err);
+        return;
       }
-    )
-  })
-})
-console.log('starting next task')
+      console.log("All lines written successfully!");
+    });
+  });
+});
+
+console.log("at end");
