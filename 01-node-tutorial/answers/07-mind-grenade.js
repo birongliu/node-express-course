@@ -1,4 +1,4 @@
-const num1 = 1000
+const num1 = 100000000
 const num2 = 10
 
 function multValues() {
