@@ -14,11 +14,23 @@ app.get("/api/v1/products", (req, res) => {
 })
 
 app.get("/api/v1/products/:productID", (req, res) => {
-    const { productID } = req.params;
-    if(!isNaN(productID)) return res.json({ message: "Invalid product ID" });
-    const singleProduct = products.find((product) => product.id === Number(productID));
+    const id = req.params.productID;
+    if(!isNaN(id)) return res.json({ message: "Invalid product ID" });
+    const singleProduct = products.find((product) => product.id === id);
     if(!singleProduct) return res.json({ message: "product with the ID" });
     res.json(singleProduct);
+})
+app.get("/api/v1/query", (req, res) => {
+    const { search, limit } = req.query;
+    if(!search || !limit) {
+        return res.json({ message: "query is missing" });
+    }
+    if(limit && !isNaN(limit)) {
+        return res.json({ message: "limit should be a number" });
+    }
+
+    return products.filter((product) => product.name === search).slice(0, Number(limit));
+    
 })
 app.all("*", (req, res) => {
     res.status(404).send("resource not found")
