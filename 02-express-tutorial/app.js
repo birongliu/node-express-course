@@ -21,7 +21,8 @@ app.get("/api/v1/products/:productID", (req, res) => {
     res.json(singleProduct);
 })
 app.get("/api/v1/query", (req, res) => {
-    const { search, limit } = req.query;
+    const search = req.query.search;
+    const limit = req.query.limit;
     if(!search || !limit) {
         return res.json({ message: "query is missing" });
     }
