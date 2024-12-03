@@ -1,9 +1,24 @@
 console.log('Express Tutorial')
 const express = require('express')
-const { products } = require('./data.js')
+const { products, people } = require('./data.js')
+const peopleRouter = require('./routes/people')
 const app = express()
 app.use(express.static("./public"))
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 const port = 4000
+
+function logger(req, res, next) {
+    console.log(`${req.method} ${req.url} at ${new Date().toLocaleString()}`);
+    next();
+}
+
+app.use("/api/v1/people", peopleRouter);
+
+app.get("/", logger, (req, res) => {
+    res.send("Home Page")
+})
+
 
 
 app.get("/api/v1/test", (req, res) => {
