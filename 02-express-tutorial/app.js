@@ -15,7 +15,7 @@ app.get("/api/v1/products", (req, res) => {
 
 app.get("/api/v1/products/:productID", (req, res) => {
     const id = req.params.productID;
-    if(!isNaN(id)) return res.json({ message: "Invalid product ID" });
+    if(isNaN(id)) return res.json({ message: "Invalid product ID" });
     const singleProduct = products.find((product) => product.id === id);
     if(!singleProduct) return res.json({ message: "product with the ID" });
     res.json(singleProduct);
