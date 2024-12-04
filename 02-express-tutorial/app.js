@@ -26,7 +26,7 @@ app.get("/api/v1/query", (req, res) => {
     if(!search || !limit) {
         return res.json({ message: "query is missing" });
     }
-    if(limit && !isNaN(limit)) {
+    if(limit && isNaN(limit)) {
         return res.json({ message: "limit should be a number" });
     }
 
